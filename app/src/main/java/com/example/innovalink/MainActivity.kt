@@ -1,20 +1,39 @@
 package com.example.innovalink
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+
+    private var isInLoginView = true // Para rastrear el estado actual del layout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
+        // Cargar el diseño inicial (login.xml)
         setContentView(R.layout.login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        setupLoginView()
+    }
+
+    private fun setupLoginView() {
+        // Configurar el evento para ir a register.xml
+        val txtRegister = findViewById<TextView>(R.id.txtregister)
+        txtRegister.setOnClickListener {
+            // Cambiar al diseño de register.xml
+            setContentView(R.layout.register)
+            setupRegisterView() // Configurar el layout de registro
+        }
+    }
+
+    private fun setupRegisterView() {
+        // Configurar el evento para volver a login.xml
+        val btnGoBack = findViewById<Button>(R.id.btnExit)
+        btnGoBack.setOnClickListener {
+            // Cambiar de vuelta al diseño de login.xml
+            setContentView(R.layout.login)
+            setupLoginView() // Configurar el layout de login
         }
     }
 }
