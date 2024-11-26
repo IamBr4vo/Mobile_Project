@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         // Cargar el diseño inicial (login.xml)
         setContentView(R.layout.login)
 
+
         setupLoginView()
+
     }
 
     private fun setupLoginView() {
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRegisterView() {
         val btnRegister = findViewById<Button>(R.id.btnRegister)
-        val btnGoBack = findViewById<Button>(R.id.btnExit)
+        val btnGoBack = findViewById<Button>(R.id.btnExit2)
         val txtName = findViewById<EditText>(R.id.txtName)
         val txtEmail = findViewById<EditText>(R.id.txtEmail)
         val txtPhone = findViewById<EditText>(R.id.txtPhone)
@@ -88,11 +90,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
         // Configurar el botón para volver al login
         btnGoBack.setOnClickListener {
             setContentView(R.layout.login)
             setupLoginView()
         }
     }
+
+
+
+
+
+
+
 }

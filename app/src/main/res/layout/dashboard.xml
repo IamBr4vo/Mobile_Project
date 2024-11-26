@@ -52,12 +52,11 @@
             </TableRow>
         </FrameLayout>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView2"
-            android:name="androidx.appcompat.app.AppCompatDialogFragment"
+        <TextView
+            android:id="@+id/txtAddProject"
             android:layout_width="match_parent"
-            android:layout_height="686dp"
-            android:background="#FFFFFF" />
+            android:layout_height="wrap_content"
+            android:text="Agregar Publicacion" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

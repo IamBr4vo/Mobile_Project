@@ -35,8 +35,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="172dp"
-            android:layout_height="164dp"
+            android:layout_width="206dp"
+            android:layout_height="182dp"
             android:layout_marginStart="116dp"
             android:layout_marginTop="117dp"
             android:layout_marginEnd="116dp"
@@ -48,11 +48,15 @@
             android:id="@+id/txtEmailLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#020202"
             android:drawableTint="#050505"
             android:ems="10"
             android:foregroundTint="#000000"
             android:hint="Correo"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:shadowColor="#000000"
+            android:textColor="#000000"
+            android:textColorHighlight="#000000" />
 
         <EditText
             android:id="@+id/txtPasswordLogin"
@@ -72,10 +76,11 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#0CB6CC"
-            android:text="Iniciar" />
+            android:text="Iniciar"
+            android:textSize="20sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -94,12 +99,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#890E0E"
+            android:clickable="true"
+            android:focusable="true"
             android:foregroundTint="#0A7987"
             android:shadowColor="#0D454D"
             android:text="Registrate aqui!"
             android:textColor="#0518A9"
-            android:clickable="true"
-            android:focusable="true" />/>
+            android:textSize="16sp" />/>
 
     </LinearLayout>
 
