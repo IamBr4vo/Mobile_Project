@@ -45,7 +45,7 @@
             tools:srcCompat="@drawable/logo" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress2"
+            android:id="@+id/txtEmailLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTint="#050505"
@@ -55,7 +55,7 @@
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/editTextTextPassword2"
+            android:id="@+id/txtPasswordLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
@@ -71,7 +71,7 @@
             android:layout_height="10dp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#0CB6CC"

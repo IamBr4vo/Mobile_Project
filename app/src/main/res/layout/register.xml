@@ -70,49 +70,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="Uusario" />
+            android:hint="Nombre de usuario"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/txtEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textEmailAddress"
-            android:text="Correo" />
+            android:hint="Correo"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/txtPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="phone"
-            android:text="Numero" />
+            android:hint="Teléfono"
+            android:inputType="phone" />
 
         <EditText
             android:id="@+id/txtPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword"
-            android:text="Contraseña"
-            tools:text="Contraseña" />
+            android:hint="Contraseña"
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/txtPasswordConf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword"
-            android:text="Contraseña"
-            tools:text="Contraseña" />
+            android:hint="Confirmar contraseña"
+            android:inputType="textPassword" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="28dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnRegister"
             android:layout_width="200sp"
             android:layout_height="40sp"
             android:backgroundTint="#0CB6CC"
