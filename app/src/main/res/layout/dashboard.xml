@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:visibility="visible">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,38 +16,41 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:background="#0BB3C8">
+            android:layout_height="55dp"
+            android:background="#0A9AAB">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txtNameUserDashboard"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Jose" />
-
-                <Space
-                    android:layout_width="107dp"
-                    android:layout_height="match_parent" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="Menu Proyectos"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre"
+                    android:textColor="#FFFFFF"
                     android:textSize="16sp" />
 
                 <Space
-                    android:layout_width="109dp"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="InnovaLink"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+
+                <Space
+                    android:layout_width="74dp"
                     android:layout_height="match_parent" />
 
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="45dp"
                     android:layout_height="wrap_content"
+                    android:textAlignment="textEnd"
                     app:srcCompat="@drawable/logo" />
 
             </TableRow>
@@ -55,8 +59,24 @@
         <TextView
             android:id="@+id/txtAddProject"
             android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:text="+ Publicar Nuevo Proyecto"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#2196F3"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Agregar Publicacion" />
+            android:text="Mis Proyectos Publicados:"
+            android:textSize="16sp" />
+
+        <ListView
+            android:id="@+id/listViewProjects"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

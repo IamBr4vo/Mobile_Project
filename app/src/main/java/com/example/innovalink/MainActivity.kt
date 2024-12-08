@@ -2,6 +2,7 @@ package com.example.innovalink
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -11,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: DatabaseHelper // Instancia de la base de datos
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,10 +45,12 @@ class MainActivity : AppCompatActivity() {
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
             } else {
-                // Validar el usuario en la base de datos
-                if (dbHelper.checkUser(email, password)) {
+                val user = dbHelper.getUserByEmailAndPassword(email, password)
+                if (user != null) {
                     Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, DashboardActivity::class.java)
+                    intent.putExtra("user_id", user.id)
+                    intent.putExtra("user_name", user.username) // Enviamos el nombre del usuario
                     startActivity(intent)
                     finish()
                 } else {
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRegisterView() {
         val btnRegister = findViewById<Button>(R.id.btnRegister)
-        val btnGoBack = findViewById<Button>(R.id.btnExit2)
+        val btnGoBack = findViewById<Button>(R.id.btnExit)
         val txtName = findViewById<EditText>(R.id.txtName)
         val txtEmail = findViewById<EditText>(R.id.txtEmail)
         val txtPhone = findViewById<EditText>(R.id.txtPhone)
