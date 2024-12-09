@@ -33,6 +33,9 @@
         <activity
             android:name=".AddProjectActivity"
             android:exported="true" />
+        <activity
+            android:name=".PublicacionActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -50,9 +50,17 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         // Configurar el evento de clic para agregar proyectos
-        val txtAddProject = findViewById<TextView>(R.id.txtAddProject)
+        val txtAddProject = findViewById<TextView>(R.id.txtGestion)
         txtAddProject.setOnClickListener {
             val intent = Intent(this, AddProjectActivity::class.java)
+            intent.putExtra("user_id", userId)
+            intent.putExtra("user_name", userName)
+            intent.putExtra("isEditing", false)
+            startActivityForResult(intent, 101) // Código de solicitud 101
+        }
+        val txtAtras = findViewById<TextView>(R.id.txtAtras)
+        txtAtras.setOnClickListener {
+            val intent = Intent(this, PublicacionActivity::class.java)
             intent.putExtra("user_id", userId)
             intent.putExtra("user_name", userName)
             intent.putExtra("isEditing", false)

@@ -101,6 +101,28 @@ class DatabaseHelper(context: Context) :
             val result = db.insert(TABLE_PROJECTS, null, values)
             return result != -1L
         }
+    //all project
+    fun getAllProjects(): List<Project> {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $TABLE_PROJECTS"
+        val cursor = db.rawQuery(query, null)
+        val projects = mutableListOf<Project>()
+
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_ID))
+                val name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_NAME))
+                val subtitle = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_SUBTITLE))
+                val content = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_CONTENT))
+                val imagePath = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_IMAGE_PATH))
+                projects.add(Project(id, name, subtitle, content, imagePath))
+            } while (cursor.moveToNext())
+        } else {
+            Log.d("DatabaseHelper", "getAllProjects: No projects found in the database.")
+        }
+        cursor.close()
+        return projects
+    }
 
         fun getUserProjects(userId: Int): List<Project> {
             val db = this.readableDatabase

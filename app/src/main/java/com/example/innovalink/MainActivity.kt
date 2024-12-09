@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 val user = dbHelper.getUserByEmailAndPassword(email, password)
                 if (user != null) {
                     Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, DashboardActivity::class.java)
+                    val intent = Intent(this, PublicacionActivity::class.java)
                     intent.putExtra("user_id", user.id)
                     intent.putExtra("user_name", user.username) // Enviamos el nombre del usuario
                     startActivity(intent)
