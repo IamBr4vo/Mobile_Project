@@ -32,10 +32,12 @@ class CustomAdapter(
         // Configurar vistas del diseño
         val titleTextView = view.findViewById<TextView>(R.id.projectTitle)
         val descriptionTextView = view.findViewById<TextView>(R.id.projectSubtitle)
+        val authorTextView = view.findViewById<TextView>(R.id.projectAuthor) // TextView para el autor
         val imageView = view.findViewById<ImageView>(R.id.projectImage)
 
         titleTextView.text = project.name
         descriptionTextView.text = project.subtitle
+        authorTextView.text = "Autor: ${project.author}" // Configurar el texto del autor
 
         Glide.with(context)
             .load(project.imagePath)

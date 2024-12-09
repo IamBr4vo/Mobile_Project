@@ -2,16 +2,11 @@ package com.example.innovalink
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.io.File
 
@@ -27,6 +22,7 @@ class AddProjectActivity : AppCompatActivity() {
         setContentView(R.layout.addproject)
 
         val userName = intent.getStringExtra("user_name") ?: "Usuario"
+        val userId = intent.getIntExtra("user_id", -1)
         val txtNameUserAdd = findViewById<TextView>(R.id.txtNameUserAdd)
         txtNameUserAdd.text = userName
 
@@ -36,6 +32,7 @@ class AddProjectActivity : AppCompatActivity() {
         val etName = findViewById<EditText>(R.id.txtNameProject)
         val etSubtitle = findViewById<EditText>(R.id.txtSubtitle)
         val etContent = findViewById<EditText>(R.id.txtContent)
+        val etAuthor = findViewById<EditText>(R.id.txtAuthor) // Campo para el autor
         imageView = findViewById(R.id.imageSelected)
 
         // Verificar si estamos en modo edición
@@ -44,7 +41,7 @@ class AddProjectActivity : AppCompatActivity() {
         if (isEditing) {
             projectId = intent.getIntExtra("project_id", -1)
             if (projectId != -1) {
-                loadProjectData(projectId, etName, etSubtitle, etContent)
+                loadProjectData(projectId, etName, etSubtitle, etContent, etAuthor)
             } else {
                 Toast.makeText(this, "Error al cargar el proyecto", Toast.LENGTH_SHORT).show()
                 finish()
@@ -62,13 +59,14 @@ class AddProjectActivity : AppCompatActivity() {
             val name = etName.text.toString()
             val subtitle = etSubtitle.text.toString()
             val content = etContent.text.toString()
+            val author = etAuthor.text.toString()
 
-            if (name.isNotEmpty() && subtitle.isNotEmpty() && content.isNotEmpty()) {
+            if (name.isNotEmpty() && subtitle.isNotEmpty() && content.isNotEmpty() && author.isNotEmpty()) {
                 val dbHelper = DatabaseHelper(this)
 
                 if (isEditing) {
                     // Actualizar proyecto existente
-                    val success = dbHelper.updateProject(projectId, name, subtitle, content, imagePath)
+                    val success = dbHelper.updateProject(projectId, name, subtitle, content, imagePath, author)
                     if (success) {
                         Toast.makeText(this, "Proyecto actualizado exitosamente", Toast.LENGTH_SHORT).show()
                         setResult(Activity.RESULT_OK) // Devuelve un resultado exitoso
@@ -78,8 +76,7 @@ class AddProjectActivity : AppCompatActivity() {
                     }
                 } else {
                     // Guardar nuevo proyecto
-                    val userId = intent.getIntExtra("user_id", -1)
-                    val success = dbHelper.insertProject(userId, name, subtitle, content, imagePath)
+                    val success = dbHelper.insertProject(userId, name, subtitle, content, imagePath, author)
                     if (success) {
                         Toast.makeText(this, "Proyecto guardado exitosamente", Toast.LENGTH_SHORT).show()
                         setResult(Activity.RESULT_OK) // Devuelve un resultado exitoso
@@ -103,7 +100,6 @@ class AddProjectActivity : AppCompatActivity() {
                 builder.setTitle("Confirmación")
                 builder.setMessage("¿Estás seguro de que deseas eliminar este proyecto? Esta acción no se puede deshacer.")
                 builder.setPositiveButton("Sí") { _, _ ->
-                    // Si el usuario confirma, elimina el proyecto
                     val dbHelper = DatabaseHelper(this)
                     val success = dbHelper.deleteProject(projectId)
                     if (success) {
@@ -114,29 +110,29 @@ class AddProjectActivity : AppCompatActivity() {
                         Toast.makeText(this, "Error al eliminar el proyecto", Toast.LENGTH_SHORT).show()
                     }
                 }
-                builder.setNegativeButton("No") { dialog, _ ->
-                    // Si el usuario cancela, simplemente cierra el diálogo
-                    dialog.dismiss()
-                }
-
-                // Mostrar el cuadro de diálogo
+                builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
                 builder.create().show()
             }
         }
 
         // Salir
-        btnExit.setOnClickListener {
-            finish()
-        }
+        btnExit.setOnClickListener { finish() }
     }
 
-    private fun loadProjectData(projectId: Int, etName: EditText, etSubtitle: EditText, etContent: EditText) {
+    private fun loadProjectData(
+        projectId: Int,
+        etName: EditText,
+        etSubtitle: EditText,
+        etContent: EditText,
+        etAuthor: EditText
+    ) {
         val dbHelper = DatabaseHelper(this)
         val project = dbHelper.getProjectById(projectId)
         if (project != null) {
             etName.setText(project.name)
             etSubtitle.setText(project.subtitle)
             etContent.setText(project.content)
+            etAuthor.setText(project.author)
             imagePath = project.imagePath
             if (!imagePath.isNullOrEmpty()) {
                 try {
@@ -161,7 +157,6 @@ class AddProjectActivity : AppCompatActivity() {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
                 try {
-                    // Copiar la imagen al almacenamiento interno
                     val inputStream = contentResolver.openInputStream(selectedImageUri)
                     val file = File(filesDir, "project_image_${System.currentTimeMillis()}.jpg")
                     val outputStream = file.outputStream()
@@ -170,9 +165,8 @@ class AddProjectActivity : AppCompatActivity() {
                     inputStream?.close()
                     outputStream.close()
 
-                    // Guardar la ruta interna
                     imagePath = file.absolutePath
-                    imageView.setImageURI(Uri.fromFile(file)) // Mostrar la imagen copiada
+                    imageView.setImageURI(Uri.fromFile(file))
                 } catch (e: Exception) {
                     e.printStackTrace()
                     Toast.makeText(this, "Error al cargar la imagen", Toast.LENGTH_SHORT).show()
