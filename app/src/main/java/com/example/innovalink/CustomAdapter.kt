@@ -9,8 +9,9 @@ import com.bumptech.glide.Glide
 
 class CustomAdapter(
     private val context: Context,
-    private val projectList: List<Project>,
-    private val isEditable: Boolean // Define si los proyectos pueden ser editados
+    val projectList: MutableList<Project>, // Cambiar a `val` para acceso público
+    private val isEditable: Boolean,
+    private val onLikeToggle: (projectId: Int, isLiked: Boolean) -> Unit
 ) : BaseAdapter() {
 
     override fun getCount(): Int = projectList.size
@@ -41,7 +42,7 @@ class CustomAdapter(
         subtitleTextView.text = project.subtitle
         authorTextView.text = "Autor: ${project.author}"
         gmailTextView.text = "Gmail: ${project.gmail}"
-        contentTextView.text = project.content // Contenido completo del proyecto
+        contentTextView.text = project.content
 
         // Cargar imagen del proyecto
         Glide.with(context)
@@ -50,7 +51,17 @@ class CustomAdapter(
             .error(R.drawable.logo) // Imagen de error
             .into(imageView)
 
-        // Configurar interacción
+        // Actualizar la cantidad de likes
+        likeCountTextView.text = "${project.likes} Likes"
+
+        // Configurar estado del ícono de like
+
+
+        // Acción de like
+        likeIcon.setOnClickListener {
+            val newLikedState = !project.userHasLiked
+            onLikeToggle(project.id, newLikedState) // Notificar el cambio de estado
+        }
 
 
         view.setOnClickListener {
