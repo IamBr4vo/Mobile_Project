@@ -1,27 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@android:color/white"
-    android:padding="12dp"
+    android:padding="16dp"
     android:layout_margin="8dp"
-    android:elevation="4dp">
+    android:elevation="4dp"
+    android:divider="@android:color/darker_gray"
+    android:showDividers="middle">
 
-    <!-- Título del proyecto -->
-    <TextView
-        android:id="@+id/projectTitle"
+    <!-- Título y autor -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Título del Proyecto"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:paddingBottom="4dp"
-        android:ellipsize="end"
-        android:maxLines="1" />
+        android:orientation="vertical"
+        android:paddingBottom="8dp">
 
-    <!-- Subtítulo del proyecto -->
+        <!-- Título del proyecto -->
+        <TextView
+            android:id="@+id/projectTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título del Proyecto"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <!-- Autor -->
+        <TextView
+            android:id="@+id/projectAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Autor: Usuario"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- Subtítulo -->
     <TextView
         android:id="@+id/projectSubtitle"
         android:layout_width="match_parent"
@@ -33,43 +53,14 @@
         android:ellipsize="end"
         android:maxLines="2" />
 
-    <!-- Contenedor de detalles (autor y email) -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp">
-
-        <!-- Autor -->
-        <TextView
-            android:id="@+id/projectAuthor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Autor: Usuario"
-            android:textSize="14sp"
-            android:textColor="@android:color/black" />
-
-        <!-- Email -->
-        <TextView
-            android:id="@+id/projectEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="email@example.com"
-            android:textSize="14sp"
-            android:textColor="@android:color/holo_blue_dark"
-            android:ellipsize="end"
-            android:maxLines="1" />
-    </LinearLayout>
-
-    <!-- Imagen y contador de likes -->
+    <!-- Imagen y contenido -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <!-- Imagen del proyecto -->
+        <!-- Imagen -->
         <ImageView
             android:id="@+id/projectImage"
             android:layout_width="80dp"
@@ -77,6 +68,39 @@
             android:layout_marginEnd="12dp"
             android:scaleType="centerCrop"
             android:background="@android:color/darker_gray" />
+
+        <!-- Contenido -->
+        <TextView
+            android:id="@+id/projectContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Contenido breve del proyecto que puede incluir descripción o información adicional."
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:maxLines="3"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- Gmail y acciones -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="8dp">
+
+        <!-- Gmail -->
+        <TextView
+            android:id="@+id/projectEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="email@example.com"
+            android:textSize="14sp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
         <!-- Botón de like y contador -->
         <LinearLayout
@@ -90,7 +114,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@android:drawable/btn_star_big_on"
-                android:contentDescription="Botón de Like" />
+                android:contentDescription="Botón de Like"
+                android:tint="@android:color/holo_red_dark" />
 
             <TextView
                 android:id="@+id/projectLikes"
@@ -102,5 +127,4 @@
                 android:textColor="@android:color/black" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

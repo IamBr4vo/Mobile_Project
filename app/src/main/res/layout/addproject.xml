@@ -113,7 +113,7 @@
                 android:inputType="text"
                 android:minHeight="48dp" />
 
-            <!-- **Campo Autor** añadido -->
+            <!-- Campo Autor -->
             <EditText
                 android:id="@+id/txtAuthor"
                 android:layout_width="wrap_content"
@@ -121,6 +121,16 @@
                 android:ems="10"
                 android:hint="Autor"
                 android:inputType="text"
+                android:minHeight="48dp" />
+
+            <!-- **Campo Gmail** añadido -->
+            <EditText
+                android:id="@+id/txtGmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Gmail del Autor"
+                android:inputType="textEmailAddress"
                 android:minHeight="48dp" />
 
             <!-- Campo Contenido -->

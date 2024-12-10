@@ -11,7 +11,7 @@ class DatabaseHelper(context: Context) :
 
     companion object {
         private const val DATABASE_NAME = "UserDB"
-        private const val DATABASE_VERSION = 3 // Incrementamos la versión de la base de datos
+        private const val DATABASE_VERSION = 4 // Incrementamos la versión de la base de datos
         const val TABLE_USERS = "users"
         const val COLUMN_ID = "id"
         const val COLUMN_USERNAME = "username"
@@ -26,7 +26,8 @@ class DatabaseHelper(context: Context) :
         const val COLUMN_PROJECT_CONTENT = "project_content"
         const val COLUMN_PROJECT_IMAGE_PATH = "project_image_path"
         const val COLUMN_USER_ID = "user_id"
-        const val COLUMN_PROJECT_AUTHOR = "author" // Nuevo atributo
+        const val COLUMN_PROJECT_AUTHOR = "author"
+        const val COLUMN_PROJECT_GMAIL = "gmail" // Nuevo atributo para Gmail
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -50,6 +51,7 @@ class DatabaseHelper(context: Context) :
                 $COLUMN_PROJECT_IMAGE_PATH TEXT,
                 $COLUMN_USER_ID INTEGER NOT NULL,
                 $COLUMN_PROJECT_AUTHOR TEXT NOT NULL,
+                $COLUMN_PROJECT_GMAIL TEXT NOT NULL,
                 FOREIGN KEY ($COLUMN_USER_ID) REFERENCES $TABLE_USERS($COLUMN_ID)
             )
         """
@@ -57,9 +59,10 @@ class DatabaseHelper(context: Context) :
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        if (oldVersion < 3) {
-            val addAuthorColumnQuery = "ALTER TABLE $TABLE_PROJECTS ADD COLUMN $COLUMN_PROJECT_AUTHOR TEXT NOT NULL DEFAULT ''"
-            db?.execSQL(addAuthorColumnQuery)
+        if (oldVersion < 4) {
+            val addGmailColumnQuery =
+                "ALTER TABLE $TABLE_PROJECTS ADD COLUMN $COLUMN_PROJECT_GMAIL TEXT NOT NULL DEFAULT ''"
+            db?.execSQL(addGmailColumnQuery)
         }
     }
 
@@ -93,7 +96,15 @@ class DatabaseHelper(context: Context) :
     }
 
     // Insertar proyecto
-    fun insertProject(userId: Int, name: String, subtitle: String, content: String, imagePath: String?, author: String): Boolean {
+    fun insertProject(
+        userId: Int,
+        name: String,
+        subtitle: String,
+        content: String,
+        imagePath: String?,
+        author: String,
+        gmail: String
+    ): Boolean {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_USER_ID, userId)
@@ -102,6 +113,7 @@ class DatabaseHelper(context: Context) :
         values.put(COLUMN_PROJECT_CONTENT, content)
         values.put(COLUMN_PROJECT_IMAGE_PATH, imagePath)
         values.put(COLUMN_PROJECT_AUTHOR, author)
+        values.put(COLUMN_PROJECT_GMAIL, gmail)
 
         val result = db.insert(TABLE_PROJECTS, null, values)
         return result != -1L
@@ -122,7 +134,8 @@ class DatabaseHelper(context: Context) :
                 val content = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_CONTENT))
                 val imagePath = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_IMAGE_PATH))
                 val author = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_AUTHOR))
-                projects.add(Project(id, name, subtitle, content, imagePath, author))
+                val gmail = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_GMAIL))
+                projects.add(Project(id, name, subtitle, content, imagePath, author, gmail))
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -144,7 +157,8 @@ class DatabaseHelper(context: Context) :
                 val content = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_CONTENT))
                 val imagePath = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_IMAGE_PATH))
                 val author = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_AUTHOR))
-                projects.add(Project(id, name, subtitle, content, imagePath, author))
+                val gmail = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_GMAIL))
+                projects.add(Project(id, name, subtitle, content, imagePath, author, gmail))
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -165,14 +179,23 @@ class DatabaseHelper(context: Context) :
             val content = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_CONTENT))
             val imagePath = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_IMAGE_PATH))
             val author = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_AUTHOR))
-            project = Project(id, name, subtitle, content, imagePath, author)
+            val gmail = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PROJECT_GMAIL))
+            project = Project(id, name, subtitle, content, imagePath, author, gmail)
         }
         cursor.close()
         return project
     }
 
     // Actualizar proyecto
-    fun updateProject(projectId: Int, name: String, subtitle: String, content: String, imagePath: String?, author: String): Boolean {
+    fun updateProject(
+        projectId: Int,
+        name: String,
+        subtitle: String,
+        content: String,
+        imagePath: String?,
+        author: String,
+        gmail: String
+    ): Boolean {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_PROJECT_NAME, name)
@@ -180,6 +203,7 @@ class DatabaseHelper(context: Context) :
         values.put(COLUMN_PROJECT_CONTENT, content)
         values.put(COLUMN_PROJECT_IMAGE_PATH, imagePath)
         values.put(COLUMN_PROJECT_AUTHOR, author)
+        values.put(COLUMN_PROJECT_GMAIL, gmail)
 
         val result = db.update(TABLE_PROJECTS, values, "$COLUMN_PROJECT_ID = ?", arrayOf(projectId.toString()))
         return result > 0

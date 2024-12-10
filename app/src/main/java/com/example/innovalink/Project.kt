@@ -7,6 +7,7 @@ package com.example.innovalink
         val subtitle: String,
         val content: String,
         val imagePath: String?,
-        val author: String
+        val author: String,
+       val gmail : String
 
     )

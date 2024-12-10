@@ -23,6 +23,8 @@ class AddProjectActivity : AppCompatActivity() {
 
         val userName = intent.getStringExtra("user_name") ?: "Usuario"
         val userId = intent.getIntExtra("user_id", -1)
+        val userEmail = intent.getStringExtra("user_email") ?: "" // Obtenemos el Gmail del Intent
+
         val txtNameUserAdd = findViewById<TextView>(R.id.txtNameUserAdd)
         txtNameUserAdd.text = userName
 
@@ -32,7 +34,8 @@ class AddProjectActivity : AppCompatActivity() {
         val etName = findViewById<EditText>(R.id.txtNameProject)
         val etSubtitle = findViewById<EditText>(R.id.txtSubtitle)
         val etContent = findViewById<EditText>(R.id.txtContent)
-        val etAuthor = findViewById<EditText>(R.id.txtAuthor) // Campo para el autor
+        val etAuthor = findViewById<EditText>(R.id.txtAuthor)
+        val etEmail = findViewById<EditText>(R.id.txtGmail) // Campo para Gmail
         imageView = findViewById(R.id.imageSelected)
 
         // Verificar si estamos en modo edición
@@ -41,7 +44,7 @@ class AddProjectActivity : AppCompatActivity() {
         if (isEditing) {
             projectId = intent.getIntExtra("project_id", -1)
             if (projectId != -1) {
-                loadProjectData(projectId, etName, etSubtitle, etContent, etAuthor)
+                loadProjectData(projectId, etName, etSubtitle, etContent, etAuthor, etEmail)
             } else {
                 Toast.makeText(this, "Error al cargar el proyecto", Toast.LENGTH_SHORT).show()
                 finish()
@@ -60,26 +63,43 @@ class AddProjectActivity : AppCompatActivity() {
             val subtitle = etSubtitle.text.toString()
             val content = etContent.text.toString()
             val author = etAuthor.text.toString()
+            val email = etEmail.text.toString()
 
-            if (name.isNotEmpty() && subtitle.isNotEmpty() && content.isNotEmpty() && author.isNotEmpty()) {
+            if (name.isNotEmpty() && subtitle.isNotEmpty() && content.isNotEmpty() && author.isNotEmpty() && email.isNotEmpty()) {
                 val dbHelper = DatabaseHelper(this)
 
                 if (isEditing) {
                     // Actualizar proyecto existente
-                    val success = dbHelper.updateProject(projectId, name, subtitle, content, imagePath, author)
+                    val success = dbHelper.updateProject(
+                        projectId,
+                        name,
+                        subtitle,
+                        content,
+                        imagePath,
+                        author,
+                        email
+                    )
                     if (success) {
                         Toast.makeText(this, "Proyecto actualizado exitosamente", Toast.LENGTH_SHORT).show()
-                        setResult(Activity.RESULT_OK) // Devuelve un resultado exitoso
+                        setResult(Activity.RESULT_OK)
                         finish()
                     } else {
                         Toast.makeText(this, "Error al actualizar el proyecto", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     // Guardar nuevo proyecto
-                    val success = dbHelper.insertProject(userId, name, subtitle, content, imagePath, author)
+                    val success = dbHelper.insertProject(
+                        userId,
+                        name,
+                        subtitle,
+                        content,
+                        imagePath,
+                        author,
+                        email
+                    )
                     if (success) {
                         Toast.makeText(this, "Proyecto guardado exitosamente", Toast.LENGTH_SHORT).show()
-                        setResult(Activity.RESULT_OK) // Devuelve un resultado exitoso
+                        setResult(Activity.RESULT_OK)
                         finish()
                     } else {
                         Toast.makeText(this, "Error al guardar el proyecto", Toast.LENGTH_SHORT).show()
@@ -95,7 +115,6 @@ class AddProjectActivity : AppCompatActivity() {
         if (isEditing) {
             btnDelete.visibility = View.VISIBLE
             btnDelete.setOnClickListener {
-                // Mostrar un cuadro de diálogo de confirmación
                 val builder = android.app.AlertDialog.Builder(this)
                 builder.setTitle("Confirmación")
                 builder.setMessage("¿Estás seguro de que deseas eliminar este proyecto? Esta acción no se puede deshacer.")
@@ -124,7 +143,8 @@ class AddProjectActivity : AppCompatActivity() {
         etName: EditText,
         etSubtitle: EditText,
         etContent: EditText,
-        etAuthor: EditText
+        etAuthor: EditText,
+        etEmail: EditText
     ) {
         val dbHelper = DatabaseHelper(this)
         val project = dbHelper.getProjectById(projectId)
@@ -133,6 +153,7 @@ class AddProjectActivity : AppCompatActivity() {
             etSubtitle.setText(project.subtitle)
             etContent.setText(project.content)
             etAuthor.setText(project.author)
+            etEmail.setText(project.gmail) // Cargar Gmail en el campo correspondiente
             imagePath = project.imagePath
             if (!imagePath.isNullOrEmpty()) {
                 try {
