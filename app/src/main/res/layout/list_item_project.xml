@@ -76,9 +76,12 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="3"
+            android:clickable="true"
+            android:focusable="true"
             android:text="Contenido breve del proyecto que puede incluir descripción o información adicional."
             android:textColor="@android:color/black"
             android:textSize="14sp" />
+
     </LinearLayout>
 
     <!-- Gmail y acciones -->

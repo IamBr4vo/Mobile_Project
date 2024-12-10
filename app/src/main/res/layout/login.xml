@@ -1,96 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:foregroundTint="#9B1919"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="485dp"
-        android:layout_height="1039dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="40dp"
-        android:foregroundGravity="center_vertical"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55">
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
-        <TextView
-            android:id="@+id/textView4"
+        <!-- Título con Shimmer -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inicio de Session"
-            android:textColor="#0B9CB1"
-            android:textSize="24sp" />
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="1500">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="206dp"
-            android:layout_height="182dp"
-            android:layout_marginStart="116dp"
-            android:layout_marginTop="117dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginBottom="36dp"
-            android:foreground="@drawable/logo"
-            tools:srcCompat="@drawable/logo" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="79dp"
+                android:text="Inicio de Sesión"
+                android:textColor="#0B9CB1"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
+        <!-- Logo redondeado con sombras -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="75dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/logo"
+                app:riv_border_color="#0B9CB1"
+                app:riv_border_width="2dp"
+                app:riv_corner_radius="75dp"
+                app:riv_oval="true" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Campo de correo -->
         <EditText
             android:id="@+id/txtEmailLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#020202"
-            android:drawableTint="#050505"
-            android:ems="10"
-            android:foregroundTint="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:hint="Correo"
             android:inputType="textEmailAddress"
-            android:shadowColor="#000000"
+            android:padding="12dp"
             android:textColor="#000000"
-            android:textColorHighlight="#000000" />
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
 
+        <!-- Campo de contraseña -->
         <EditText
             android:id="@+id/txtPasswordLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:drawableTint="#000000"
-            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:hint="Contraseña"
             android:inputType="textPassword"
-            android:shadowColor="#36CED7"
-            android:textColorLink="#06BFD7" />
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
+        <!-- Botón de inicio de sesión -->
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:backgroundTint="#0CB6CC"
             android:text="Iniciar"
-            android:textSize="20sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="22dp" />
-
+        <!-- Texto de registro -->
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No tienes cuenta? "
+            android:text="¿No tienes cuenta?"
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -98,15 +103,12 @@
             android:id="@+id/txtregister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#890E0E"
+            android:text="Regístrate aquí"
+            android:textColor="#0A7987"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
             android:clickable="true"
-            android:focusable="true"
-            android:foregroundTint="#0A7987"
-            android:shadowColor="#0D454D"
-            android:text="Registrate aqui!"
-            android:textColor="#0518A9"
-            android:textSize="16sp" />/>
-
+            android:focusable="true" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

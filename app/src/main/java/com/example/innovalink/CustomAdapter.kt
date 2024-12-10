@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 
 class CustomAdapter(
     private val context: Context,
@@ -41,7 +44,21 @@ class CustomAdapter(
         titleTextView.text = project.name
         subtitleTextView.text = project.subtitle
         authorTextView.text = "Autor: ${project.author}"
-        gmailTextView.text = "Gmail: ${project.gmail}"
+        // Dentro del adaptador
+        val gmailLabel = "Contacto: "
+        val spannable = SpannableString("$gmailLabel${project.gmail}")
+
+// Aplica color negro al texto "Gmail:"
+        val labelColorSpan = ForegroundColorSpan(context.getColor(android.R.color.black))
+        spannable.setSpan(labelColorSpan, 0, gmailLabel.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+// Aplica color azul al valor del Gmail
+        val valueColorSpan = ForegroundColorSpan(context.getColor(android.R.color.holo_blue_dark))
+        spannable.setSpan(valueColorSpan, gmailLabel.length, spannable.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+// Establece el texto formateado
+        gmailTextView.text = spannable
+
         contentTextView.text = project.content
 
         // Cargar imagen del proyecto

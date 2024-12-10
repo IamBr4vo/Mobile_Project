@@ -3,188 +3,197 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <!-- Encabezado -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:background="#0A9AAB">
+            android:layout_height="60dp"
+            android:background="#0A9AAB"
+            android:elevation="6dp">
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp">
 
                 <TextView
                     android:id="@+id/txtNameUserAdd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Nombre"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
-
-                <Space
-                    android:layout_width="95dp"
-                    android:layout_height="match_parent" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:text="InnovaLink"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                <Space
-                    android:layout_width="82dp"
-                    android:layout_height="match_parent" />
-
-                <ImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="56dp"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/logo" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo"
+                    app:riv_oval="true"
+                    app:riv_border_width="1dp"
+                    app:riv_border_color="#0A9AAB" />
 
-            </TableRow>
+            </LinearLayout>
         </FrameLayout>
 
         <!-- Contenido principal -->
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp">
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <!-- Botón Salir -->
                 <Button
                     android:id="@+id/btnExitAdd"
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
                     android:backgroundTint="#00BCD4"
-                    android:insetTop="15dp"
+                    android:paddingVertical="8dp"
+                    android:text="Salir"
+                    android:textColor="#FFFFFF" />
+
+                <!-- Título -->
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Proyecto"
                     android:textAlignment="center"
-                    app:icon="@android:drawable/ic_menu_revert"
-                    app:iconPadding="12dp"
-                    app:iconSize="20dp"
-                    app:iconTint="#000000" />
-            </TableRow>
+                    android:textColor="#141414"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingVertical="12dp" />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Proyecto"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                <!-- Campo Nombre del Proyecto -->
+                <EditText
+                    android:id="@+id/txtNameProject"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Nombre del Proyecto"
+                    android:inputType="text"
+                    android:backgroundTint="#000000"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginBottom="8dp" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                <!-- Campo Subtítulo -->
+                <EditText
+                    android:id="@+id/txtSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Subtítulo"
+                    android:inputType="text"
+                    android:backgroundTint="#0B0B0B"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginBottom="8dp" />
 
-            <!-- Campo Nombre del Proyecto -->
-            <EditText
-                android:id="@+id/txtNameProject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Nombre del Proyecto"
-                android:inputType="text"
-                android:minHeight="48dp" />
+                <!-- Campo Autor -->
+                <EditText
+                    android:id="@+id/txtAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Autor"
+                    android:inputType="text"
+                    android:backgroundTint="#050505"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginBottom="8dp" />
 
-            <!-- Campo Subtítulo -->
-            <EditText
-                android:id="@+id/txtSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Subtítulo"
-                android:inputType="text"
-                android:minHeight="48dp" />
+                <!-- Campo Gmail -->
+                <EditText
+                    android:id="@+id/txtGmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Gmail del Autor"
+                    android:inputType="textEmailAddress"
+                    android:backgroundTint="#000000"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginBottom="8dp" />
 
-            <!-- Campo Autor -->
-            <EditText
-                android:id="@+id/txtAuthor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Autor"
-                android:inputType="text"
-                android:minHeight="48dp" />
+                <!-- Campo Contenido -->
+                <EditText
+                    android:id="@+id/txtContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:hint="Contenido"
+                    android:inputType="textMultiLine"
+                    android:gravity="start|top"
+                    android:backgroundTint="#0F0F0F"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginBottom="8dp" />
 
-            <!-- **Campo Gmail** añadido -->
-            <EditText
-                android:id="@+id/txtGmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Gmail del Autor"
-                android:inputType="textEmailAddress"
-                android:minHeight="48dp" />
+                <!-- Imagen seleccionada -->
+                <ImageView
+                    android:id="@+id/imageSelected"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="12dp"
+                    android:scaleType="centerCrop"
+                    android:background="#D9D9D9"
+                    app:srcCompat="@android:drawable/ic_menu_gallery" />
 
-            <!-- Campo Contenido -->
-            <EditText
-                android:id="@+id/txtContent"
-                android:layout_width="385dp"
-                android:layout_height="96dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="Contenido"
-                android:inputType="textMultiLine" />
+                <!-- Botón Seleccionar Imagen -->
+                <Button
+                    android:id="@+id/btnSearchImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#00BCD4"
+                    android:text="Seleccionar Imagen"
+                    android:textColor="#FFFFFF"
+                    android:paddingVertical="8dp"
+                    android:layout_marginBottom="8dp" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
+                <!-- Botón Publicar Proyecto -->
+                <Button
+                    android:id="@+id/btnaddProject"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#00BCD4"
+                    android:text="Publicar Proyecto"
+                    android:textColor="#FFFFFF"
+                    android:paddingVertical="8dp"
+                    android:layout_marginBottom="8dp" />
 
-            <!-- Imagen seleccionada -->
-            <ImageView
-                android:id="@+id/imageSelected"
-                android:layout_width="253dp"
-                android:layout_height="142dp"
-                android:background="#415254"
-                app:srcCompat="@android:drawable/ic_menu_crop" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
-
-            <!-- Botón Seleccionar Imagen -->
-            <Button
-                android:id="@+id/btnSearchImage"
-                android:layout_width="385dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#10B8CE"
-                android:text="Seleccionar Imagen" />
-
-            <!-- Botón Publicar Proyecto -->
-            <Button
-                android:id="@+id/btnaddProject"
-                android:layout_width="386dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#0BB4C8"
-                android:text="Publicar Proyecto" />
-
-            <!-- Botón Eliminar Proyecto -->
-            <Button
-                android:id="@+id/btnDeleteProject"
-                android:layout_width="385dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00BCD4"
-                android:text="Eliminar Proyecto"
-                android:visibility="gone" />
-
-        </LinearLayout>
-
+                <!-- Botón Eliminar Proyecto -->
+                <Button
+                    android:id="@+id/btnDeleteProject"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#FF5252"
+                    android:text="Eliminar Proyecto"
+                    android:textColor="#FFFFFF"
+                    android:paddingVertical="8dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

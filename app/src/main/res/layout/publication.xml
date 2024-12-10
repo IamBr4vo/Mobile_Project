@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="visible">
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,17 +11,21 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Encabezado -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="#0A9AAB">
+            android:layout_height="60dp"
+            android:background="#0A9AAB"
+            android:elevation="4dp"
+            android:padding="8dp">
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txtNameUserDashboard"
@@ -29,63 +33,82 @@
                     android:layout_height="wrap_content"
                     android:text="Nombre"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent" />
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="8dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="InnovaLink"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
-                <Space
-                    android:layout_width="74dp"
-                    android:layout_height="match_parent" />
-
-                <ImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="45dp"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="textEnd"
-                    app:srcCompat="@drawable/logo" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo"
+                    app:riv_oval="true"
+                    app:riv_border_width="1dp"
+                    app:riv_border_color="#0A9AAB" />
 
-            </TableRow>
+
+            </LinearLayout>
         </FrameLayout>
 
+        <!-- Botón de gestión -->
+        <TextView
+            android:id="@+id/txtGestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="Gestionar Mis Publicaciones"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#00BCD4"
+            android:textSize="18sp"
+
+            android:padding="10dp" />
+
+        <!-- Subtítulo -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtGestion"
+                android:id="@+id/textView3"
                 android:layout_width="match_parent"
-                android:layout_height="31dp"
-                android:text="Gestion Publicaciones"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Proyectos Publicados"
                 android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="#00BCD4"
-                android:textSize="18sp" />
+                android:textColor="#141414"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Mis Proyectos Publicados"
-            android:textColor="#141414"
-            android:textSize="16sp" />
+        <!-- Lista de proyectos -->
 
         <ListView
             android:id="@+id/listViewProjects"
             android:layout_width="match_parent"
-            android:layout_height="676dp" />
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:elevation="2dp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-

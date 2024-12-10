@@ -6,6 +6,7 @@ import android.widget.AbsListView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 class PublicacionActivity : AppCompatActivity() {
@@ -37,6 +38,7 @@ class PublicacionActivity : AppCompatActivity() {
             intent.putExtra("isEditing", false)
             startActivityForResult(intent, 101) // Código de solicitud 101
         }
+
 
         dbHelper = DatabaseHelper(this)
 
@@ -84,6 +86,14 @@ class PublicacionActivity : AppCompatActivity() {
     }
 
 
+    private fun showProjectDetails(title: String, content: String) {
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage(content)
+            .setPositiveButton("Cerrar") { dialog, _ -> dialog.dismiss() }
+            .create()
+        dialog.show()
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -94,4 +104,6 @@ class PublicacionActivity : AppCompatActivity() {
             reloadProjects(userId, userName, listView)
         }
     }
+
+
 }

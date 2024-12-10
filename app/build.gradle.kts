@@ -46,6 +46,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //
     implementation("com.github.bumptech.glide:glide:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.12.0")
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+    implementation ("com.airbnb.android:lottie:5.2.0")
+
+
+
 }
